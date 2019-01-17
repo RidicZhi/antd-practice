@@ -1,7 +1,23 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Button from 'antd/lib/button';
+import { Modal, Button } from 'antd';
+
+const confirm = Modal.confirm;
+
+function showConfirm() {
+  confirm({
+    title: 'Do you Want to delete these items?',
+    content: 'Some descriptions',
+    onOk() {
+      console.log('OK');
+    },
+    onCancel() {
+      console.log('Cancel');
+    },
+  });
+}
+
 
 class App extends Component {
   render() {
@@ -20,10 +36,12 @@ class App extends Component {
           >
             Learn React
           </a>
-          <Button type="primary">Primary</Button>
-          <Button type="primary">Primary</Button>
-
         </header>
+        <div>
+          <Button onClick={showConfirm}>
+            Confirm
+          </Button>
+        </div>
       </div>
     );
   }
