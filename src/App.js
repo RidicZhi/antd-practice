@@ -1,48 +1,65 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Modal, Button } from 'antd';
+import { Layout, Menu, Icon } from 'antd';
+import Logo from './logo.jpg';
 
-const confirm = Modal.confirm;
-
-function showConfirm() {
-  confirm({
-    title: 'Do you Want to delete these items?',
-    content: 'Some descriptions',
-    onOk() {
-      console.log('OK');
-    },
-    onCancel() {
-      console.log('Cancel');
-    },
-  });
-}
-
+const { Header, Sider, Content } = Layout;
 
 class App extends Component {
+  state = {
+    collapsed: false,
+  };
+
+  toggle = () => {
+    this.setState({
+      collapsed: !this.state.collapsed,
+    });
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-        <div>
-          <Button onClick={showConfirm}>
-            Confirm
-          </Button>
-        </div>
-      </div>
+      <Layout>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={this.state.collapsed}
+        width='300'
+      >
+        <div className="logo" key="logo">
+              <img src={Logo} alt="logo" />
+              <h1>Ridic  Zhi</h1>
+          </div>
+        <Menu className="menu" theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+          <Menu.Item key="1">
+            <Icon type="user" />
+            <span>nav 1</span>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Icon type="video-camera" />
+            <span>nav 2</span>
+          </Menu.Item>
+          <Menu.Item key="3">
+            <Icon type="upload" />
+            <span>nav 3</span>
+          </Menu.Item>
+        </Menu>
+      </Sider>
+      <Layout>
+        <Header className="header" style={{ background: '#fff', padding: 0 }}>
+          <Icon
+            className="trigger"
+            type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+            onClick={this.toggle}
+          />
+        </Header>
+        <Content style={{
+          margin: '24px 16px', padding: 24, background: '#fff', minHeight: 500,
+        }}
+        >
+          Content
+        </Content>
+      </Layout>
+    </Layout>
     );
   }
 }
